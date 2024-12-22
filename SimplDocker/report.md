@@ -70,29 +70,38 @@
 
 **== Задание ==**
 
+
+<details>
+<summary>Preamble</summary>
 запустим контейнер задав ему удобное имя 
 `sudo docker run -p 80:80 --name do5_ex02 nginx`
 Если вдруг он не запустился проверить через команду с дирректирвой -а которая покажет все контейнеры зарегистрованные `sudo docker ps -a` статус контейнера если он exited попробовать перезапустить его командой `sudo docker restart do5` еще раз проверить статуc 
+</details>
 
-1. Прочитай конфигурационный файл *nginx.conf* внутри докер контейнера через команду *exec*.
+1. Прочитай конфигурационный файл *nginx.conf* внутри докер контейнера через команду *exec*  
 `sudo docker exec -it do5_ cat /etc/nginx/nginx.conf`
 ![--scrin-- read nginx.conf ](img/2_exec_conf.jpg)
 
-2. Создай на локальной машине файл *nginx.conf*. 
+2. Создай на локальной машине файл *nginx.conf*  
 `touch nginx.conf` 
 
 3. Настрой в нем по пути */status* отдачу страницы статуса сервера **nginx**.
-![--scrin-- touch local nginx.conf ](img/2_locl_nginx_conf.jpg)
-в него можно скопировать все что было прочитано на прошлом шаге и добавить секцию 
+![--scrin-- touch local nginx.conf ](img/2_locl_nginx_conf.jpg)  
+
+> в него можно скопировать все что было прочитано на прошлом шаге и добавить секцию 
 
 ```server {
   location /status{
     stub_status on;
   }
-}```
+}```  
 
+
+<details>
+<summary>chet-code</summary>
 при этом диррективу включения конфугарации надо закомментировать - строку `#include /etc/nginx/conf.d/*conf;`
 в противном случае можно получать при перезапуске nginx ошибку `nginx: [warn] conflicting server name "loclhost" on 0.0.0.0:80, ignored` - эта ошибка возникает из-за двух одинаковых директивы "server_name" в двух отдельных файлах *.conf.  
+</details>
 
 4. Скопируй созданный файл *nginx.conf* внутрь докер-образа через команду `docker cp`.
 `sudo docker cp nginx.conf do5:/etc/nginx/nginx.conf`
