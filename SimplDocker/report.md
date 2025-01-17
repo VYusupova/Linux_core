@@ -37,32 +37,32 @@
 ## Part 1. Готовый докер
 
 1. Возьми официальный докер-образ с **nginx** и выкачай его при помощи `sudo docker pull`  
-![--scrin-- sudo docker pull](img/1_docker_pull_nginx.png)  
+![--scrin-- sudo docker pull](img/1_docker_pull_nginx.png "скачали nginx")  
 
 2. Проверь наличие докер-образа через `sudo docker images`  
-![--scrin-- sudo docker images](img/1_docker_images_nginx.png)  
+![--scrin-- sudo docker images](img/1_docker_images_nginx.png "проверили что образ есть")  
 
 3. Запусти докер-образ через `sudo docker run -d [image_id|repository]`  
 4. Проверь, что образ запустился через `docker ps`  
-![--scrin-- sudo docker run -d](img/1_docker_run_ps_inspect.png)  
+![--scrin-- sudo docker run -d](img/1_docker_run_ps_inspect.png "Запистили образ и проверили что он есть в списке контейнеров")  
 
 5. Посмотри информацию о контейнере через `sudo docker inspect [container_id|container_name]`  
 По выводу команды определи и помести в отчёт
-- размер контейнера - ![--scrin-- sudo docker size](img/1_docker_size.png)
-- список замапленных портов - ![--scrin-- sudo docker port](img/1_docker_port.png)
-- ip контейнера - ![--scrin-- sudo docker ip](img/1_docker_ip.png)
+- размер контейнера - ![--scrin-- sudo docker size](img/1_docker_size.png "размер контейнера")
+- список замапленных портов - ![--scrin-- sudo docker port](img/1_docker_port.png "замапленные порты")
+- ip контейнера - ![--scrin-- sudo docker ip](img/1_docker_ip.png "ip контейнера")
 
 7. Останови докер контейнер через `sudo docker stop [container_id|container_name]`  
 8. Проверь, что контейнер остановился через `docker ps`
-![--scrin-- sudo docker ps](img/1_docker_stop_ps.png)
+![--scrin-- sudo docker ps](img/1_docker_stop_ps.png "проверили что контейнер остановлен")
 
 9. Запусти докер с портами 80 и 443 в контейнере, замапленными на такие же порты на локальной машине, через команду *run*  
 10. Проверь, что в браузере по адресу *localhost:80* доступна стартовая страница **nginx**  
-![--scrin-- localhost:80](img/1_docker_localhost_80.png)  
+![--scrin-- localhost:80](img/1_docker_localhost_80.png "запустили контейнер с замапленными портами и проверили доступность страницы по локалхосту")  
 
 11. Перезапусти докер контейнер через `docker restart [container_id|container_name]`  
 12. Проверь любым способом, что контейнер запустился  
-![--scrin-- docker restart ](img/1_docker_restart.png)
+![--scrin-- docker restart ](img/1_docker_restart.png "рестартили контейнер, проверили что он перезапустился")
 
 ## Part 2. Операции с контейнером
 
@@ -72,7 +72,7 @@
 
 
 запустим контейнер задав ему удобное имя 
-`sudo docker run -p 80:80 --name do5_ex02 nginx`
+`sudo docker run -d -p 80:80 --name do5_ex02 nginx`
 Если вдруг он не запустился проверить через команду с дирректирвой -а которая покажет все контейнеры зарегистрованные `sudo docker ps -a` статус контейнера если он exited попробовать перезапустить его командой `sudo docker restart do5_ex02` еще раз проверить статуc 
 
 
@@ -119,10 +119,11 @@ server {
 
 7. Экспортируй контейнер в файл *container.tar* через команду *export*  
 теория https://netpoint-dc.com/blog/sohranenie-i-zagruzka-obrazov-kontejnerov-docker/  
+Проверь что архив создан командой ls.
 
-8. Останови контейнер  
+9. Останови контейнер  
 
-9. Удали образ через `docker rmi [image_id|repository]`, не удаляя перед этим контейнеры  
+10. Удали образ через `docker rmi [image_id|repository]`, не удаляя перед этим контейнеры  
 
 ![--scrin-- export + stop + rmi ](img/2_export_stop_rmi.jpg)  
 
@@ -131,14 +132,12 @@ server {
 ![--scrin-- rm container ](img/2_rm_container.jpg)  
 
 
-##### Импортируй контейнер обратно через команду *import*.
-##### Запусти импортированный контейнер.
-##### Проверь, что по адресу *localhost:80/status* отдается страничка со статусом сервера **nginx**.
+11. Импортируй контейнер обратно через команду *import*.
+12. Запусти импортированный контейнер.
+13. Проверь, что по адресу *localhost:80/status* отдается страничка со статусом сервера **nginx**.
+![--scrin-- rm container ](img/2_import.png)  
 
-- В отчёт помести скрины:
-  - вызова и вывода всех использованных в этой части задания команд;
-  - содержимое созданного файла *nginx.conf*;
-  - страницы со статусом сервера **nginx** по адресу *localhost:80/status*.
+
 ## Part 3. Мини веб-сервер
 
 Теперь стоит немного оторваться от докера, чтобы подготовиться к последнему этапу. Время написать свой сервер.
