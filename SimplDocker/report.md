@@ -71,15 +71,13 @@
 **== Задание ==**
 
 
-<details>
-<summary>Preamble</summary>
 запустим контейнер задав ему удобное имя 
 `sudo docker run -p 80:80 --name do5_ex02 nginx`
-Если вдруг он не запустился проверить через команду с дирректирвой -а которая покажет все контейнеры зарегистрованные `sudo docker ps -a` статус контейнера если он exited попробовать перезапустить его командой `sudo docker restart do5` еще раз проверить статуc 
-</details>
+Если вдруг он не запустился проверить через команду с дирректирвой -а которая покажет все контейнеры зарегистрованные `sudo docker ps -a` статус контейнера если он exited попробовать перезапустить его командой `sudo docker restart do5_ex02` еще раз проверить статуc 
+
 
 1. Прочитай конфигурационный файл *nginx.conf* внутри докер контейнера через команду *exec*  
-`sudo docker exec -it do5_ cat /etc/nginx/nginx.conf`
+`sudo docker exec -it do5_ex02 cat /etc/nginx/nginx.conf`
 ![--scrin-- read nginx.conf ](img/2_exec_conf.jpg)
 
 2. Создай на локальной машине файл *nginx.conf*  
@@ -88,7 +86,13 @@
 3. Настрой в нем по пути */status* отдачу страницы статуса сервера **nginx**.
 ![--scrin-- touch local nginx.conf ](img/2_locl_nginx_conf.jpg)  
 
-> в него можно скопировать все что было прочитано на прошлом шаге и добавить секцию 
+<details>
+<summary>chet-code</summary>
+
+> в него можно скопировать все что было прочитано на прошлом шаге и добавить секцию, при этом диррективу включения конфугарации надо закомментировать то есть строку `#include /etc/nginx/conf.d/*conf;`
+в противном случае можно получать при перезапуске nginx ошибку `nginx: [warn] conflicting server name "loclhost" on 0.0.0.0:80, ignored` - эта ошибка возникает из-за двух одинаковых директивы "server_name" в двух отдельных файлах *.conf.  
+
+</details>
 
 ```
 server {
@@ -99,27 +103,34 @@ server {
 ```  
 
 
-<details>
-<summary>chet-code</summary>
-при этом диррективу включения конфугарации надо закомментировать - строку `#include /etc/nginx/conf.d/*conf;`
-в противном случае можно получать при перезапуске nginx ошибку `nginx: [warn] conflicting server name "loclhost" on 0.0.0.0:80, ignored` - эта ошибка возникает из-за двух одинаковых директивы "server_name" в двух отдельных файлах *.conf.  
-</details>
-
 4. Скопируй созданный файл *nginx.conf* внутрь докер-образа через команду `docker cp`  
-`sudo docker cp nginx.conf do5:/etc/nginx/nginx.conf`  
-![--scrin-- cp nginx.conf ](img/2_cp_nginx_conf.jpg)
-> командой из шага 1 можно проверить что файл скопирован и заменен
+командой из шага 1 можно проверить что файл скопирован и заменен  
+`sudo docker cp nginx.conf do5_ex02:/etc/nginx/nginx.conf`  
+![--scrin-- cp nginx.conf ](img/2_cp_nginx_conf.jpg)  
+
+
 
 5. Перезапусти **nginx** внутри докер-образа через команду *exec*  
-![--scrin-- reload nginx.conf ](img/2_reload_nginx_conf.jpg)
+![--scrin-- reload nginx.conf ](img/2_reload_nginx_conf.jpg)  
 
 6. Проверь, что по адресу *localhost:80/status* отдается страничка со статусом сервера **nginx**  
-![--scrin-- status nginx.conf ](img/2_status.jpg)
+![--scrin-- status nginx.conf ](img/2_status.jpg)  
 
-##### Экспортируй контейнер в файл *container.tar* через команду *export*.
-##### Останови контейнер.
-##### Удали образ через `docker rmi [image_id|repository]`, не удаляя перед этим контейнеры.
-##### Удали остановленный контейнер.
+
+7. Экспортируй контейнер в файл *container.tar* через команду *export*  
+теория https://netpoint-dc.com/blog/sohranenie-i-zagruzka-obrazov-kontejnerov-docker/  
+
+8. Останови контейнер  
+
+9. Удали образ через `docker rmi [image_id|repository]`, не удаляя перед этим контейнеры  
+
+![--scrin-- export + stop + rmi ](img/2_export_stop_rmi.jpg)  
+
+10.  Удали остановленный контейнер  
+
+![--scrin-- rm container ](img/2_rm_container.jpg)  
+
+
 ##### Импортируй контейнер обратно через команду *import*.
 ##### Запусти импортированный контейнер.
 ##### Проверь, что по адресу *localhost:80/status* отдается страничка со статусом сервера **nginx**.
@@ -128,7 +139,6 @@ server {
   - вызова и вывода всех использованных в этой части задания команд;
   - содержимое созданного файла *nginx.conf*;
   - страницы со статусом сервера **nginx** по адресу *localhost:80/status*.
-
 ## Part 3. Мини веб-сервер
 
 Теперь стоит немного оторваться от докера, чтобы подготовиться к последнему этапу. Время написать свой сервер.
