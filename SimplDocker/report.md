@@ -34,7 +34,8 @@
 - Необходимо быть готовым продемонстрировать решение вживую при необходимости.
 </details>
 
-## Part 1. Готовый докер
+<details>
+<summary> Part 1. Готовый докер </summary> 
 
 1. Возьми официальный докер-образ с **nginx** и выкачай его при помощи `sudo docker pull`  
 ![--scrin-- sudo docker pull](img/1_docker_pull_nginx.png "скачали nginx")  
@@ -63,6 +64,8 @@
 11. Перезапусти докер контейнер через `docker restart [container_id|container_name]`  
 12. Проверь любым способом, что контейнер запустился  
 ![--scrin-- docker restart ](img/1_docker_restart.png "рестартили контейнер, проверили что он перезапустился")
+
+</details>
 
 ## Part 2. Операции с контейнером
 
@@ -139,15 +142,31 @@ server {
 
 
 ## Part 3. Мини веб-сервер
+1. Убираю все контейнеры `docker rm -f $(docker ps -aq)` и все образы `docker rmi -f $(docker images -q)`
+2. Скачиваю новый nginx `docker pull nginx`
+3. запускаю с мапингом портов `docker run -d -p 80:81 nginx`
+4. для компиляции файла сервера ставим 'sudo apt install libfcgi-dev`
+5. компилируем файл server.c `sudo gcc -o server server.c -lfcgi`
+6. изменяем файл конфига
+7. переносим сервер в контейнер `docker cp server $(docker ps -q):/`
+8. Проверяем что он появился `docker exec $(docker ps -q) ls`
+9. Установить внутрь контейнера spqwn-fcgi. Для начала обновимся `docker exec $(docker ps -q) apt-get update` и после `docker exec $(docker ps -q) apt-get install spawn-fcgi`  ![--scrin-- update ](img/update.png)   ![--scrin-- install ](img/install.png)    ![--scrin-- version ](img/version.png)
+10. переносим файл конфига в контейнер `docker cp server $(docker ps -q):/etc/nginx/`
+11. перезапускаем `docker exec $(docker ps -q) nginx -s reload
+12. запускаею на порту 8080 получаю ошибку 127 `docker exec $(docker ps -q) spawn-fcgi -p 8080 server`
 
 Теперь стоит немного оторваться от докера, чтобы подготовиться к последнему этапу. Время написать свой сервер.
 Теория + пример https://lectureswww.readthedocs.io/5.web.server/fcgi.html
 
 **== Задание ==**
 
-##### Напиши мини-сервер на **C** и **FastCgi**, который будет возвращать простейшую страничку с надписью `Hello World!`.
+1. Напиши мини-сервер на **C** и **FastCgi**, который будет возвращать простейшую страничку с надписью `Hello World!`  
+   ![--scrin-- server.c ](img/server.png)  
+   
 ##### Запусти написанный мини-сервер через *spawn-fcgi* на порту 8080.
-##### Напиши свой *nginx.conf*, который будет проксировать все запросы с 81 порта на *127.0.0.1:8080*.
+3. Напиши свой *nginx.conf*, который будет проксировать все запросы с 81 порта на *127.0.0.1:8080*  
+ ![--scrin-- nginx.conf ](img/nginx.png)  
+
 ##### Проверь, что в браузере по *localhost:81* отдается написанная тобой страничка.
 ##### Положи файл *nginx.conf* по пути *./nginx/nginx.conf* (это понадобится позже).
 
