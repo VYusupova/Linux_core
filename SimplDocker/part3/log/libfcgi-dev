@@ -1,0 +1,28 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libfcgi-bin libfcgi0ldbl
+The following NEW packages will be installed:
+  libfcgi-bin libfcgi-dev libfcgi0ldbl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 192 kB of archives.
+After this operation, 663 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 libfcgi0ldbl amd64 2.4.2-2 [26.1 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libfcgi-bin amd64 2.4.2-2 [12.9 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 libfcgi-dev amd64 2.4.2-2 [153 kB]
+Fetched 192 kB in 0s (603 kB/s)
+Selecting previously unselected package libfcgi0ldbl:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 12564 files and directories currently installed.)
+Preparing to unpack .../libfcgi0ldbl_2.4.2-2_amd64.deb ...
+Unpacking libfcgi0ldbl:amd64 (2.4.2-2) ...
+Selecting previously unselected package libfcgi-bin.
+Preparing to unpack .../libfcgi-bin_2.4.2-2_amd64.deb ...
+Unpacking libfcgi-bin (2.4.2-2) ...
+Selecting previously unselected package libfcgi-dev:amd64.
+Preparing to unpack .../libfcgi-dev_2.4.2-2_amd64.deb ...
+Unpacking libfcgi-dev:amd64 (2.4.2-2) ...
+Setting up libfcgi0ldbl:amd64 (2.4.2-2) ...
+Setting up libfcgi-bin (2.4.2-2) ...
+Setting up libfcgi-dev:amd64 (2.4.2-2) ...
+Processing triggers for libc-bin (2.36-9+deb12u9) ...
