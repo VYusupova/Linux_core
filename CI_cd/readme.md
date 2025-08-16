@@ -45,12 +45,32 @@ docker: Задачи выполняются в Docker контейнерах.
 
 </details>
 
+<details>
+<summary> в картинках </summary>
+
+![Настройка сети вируальной машины ](image/VM_network.png "Настройка сети вируальной машины ")  
+  
+![установка ssh при установке убунту](image/install_openSSH.png "установка ssh при установке убунту")  
+  
+![Возможные ошибки при запуске службы sshd](image/Error_sshd.png "Возможные ошибки при запуске службы sshd")  
+  
+![проверка статуса службы sshd](image/status_sshd.png "проверка статуса службы sshd")  
+  
+![результат подключения через sshd](image/ssh_doing_result.png "результат подключения через sshd")  
+  
+![установка gitlab-runner](image/install_gitlab_runner.png "установка gitlab-runner")  
+  
+![регистрация gitlab-runner](image/runner_register.png "регистрация gitlab-runner")  
+
+
+
+</details>
 
 эти картинки можно удалить
 
 
 
-![d](3.png)  
-![d](4.png)  
+
+
 ![d](5.png)  
 ![d](6.png)  
