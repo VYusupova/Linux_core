@@ -138,6 +138,14 @@ build_job:
 <details>
 <summary> простой yaml сгеренированй AI  </summary>
 
+<details>
+<summary> результат работы </summary>
+
+![результат работы пйплайна ](image/Jobs_artifacts.png "результат работы пйплайна")  
+![сохраненные артифакты ](image/artifacts.png "сохраненные артифакты ")  
+
+</details>
+
 Чтобы добавить в `.gitlab-ci.yml` этап запуска сборки через make из папки code-samples, нужно добавить новый этап и задание в файл `.gitlab-ci.yml`, указав команду `make` внутри соответствующей директории, например, так:   
 ```yaml
 default:
@@ -173,12 +181,11 @@ build-job:
 > **paths:** Указывает, какие файлы или директории нужно сохранить как артефакты. В примере мы сохраняем все из директории my_artifacts/  
 > **expire_in:** 30 days: Устанавливает срок хранения артефакта в днях. Срок хранения по умолчанию равен 30 дням, но это явное указание делает настройку более понятной и защищает от случайных изменений в конфигурации GitLab  
 
+
+
 </details>
 
 
-
-![результат работы пйплайна ](image/Jobs_artifacts.png "результат работы пйплайна")  
-![сохраненные артифакты ](image/artifacts.png "сохраненные артифакты ")  
 
 ##   Тест кодстайла
 
@@ -205,5 +212,89 @@ style-job:
 Если кодстайл не прошел, то "зафейлить" пайплайн
 (Для этого нужно использовать флаг --Werror)
 В пайплайне отобразить вывод утилиты clang-format (--verbose)
+
+</details>
+
+##   Интеграционные тесты
+
+Для проекта из папки `code-samples` напиши интеграционные тесты самостоятельно.  
+Тесты должны вызывать собранное приложение для проверки его работоспособности на разных случаях.  
+Запусти этот этап автоматически только при условии, если сборка и тест кодстайла прошли успешно.  
+Если тесты не прошли, то «зафейли» пайплайн.  
+> В пайплайне отобрази вывод, что интеграционные тесты успешно прошли / провалились.
+
+ 
+<details>
+<summary> добавляем в файл yaml проверку </summary>
+
+ 
+```yaml
+test-job:
+    stage: test
+    needs: ["build-job", "style-job"]
+    script:
+        - cd code-samples/
+        - test=$(make test)                 # в переменную попадет весь вывод в консоль
+        # - echo $test
+        # Флаг -c подавляет вывод и возвращает 1 - символ найден, и 0, если не найден.
+        #- echo $(echo $test | grep -c 'FAIL')
+        # Если вернется код 1, то пайплайн зафейлится.
+        - if [[ $(echo $test | grep -c 'FAIL') -ne 0 ]]; then exit 1; else echo " ✅ run test completed"; fi
+    allow_failure: false
+```
+
+**Needs** используется для указания последовательности выполнения этапов. Пока не пройдет сборка и тест, этап тестирования не начнется   
+**Allow_failure:** false указываю для того, чтобы при ошибке пайплайн завершился и не перешел на следующий этап.
+
+</details>
+
+<details>
+<summary> файл с тестом </summary>
+
+ 
+```bash
+#!/bin/bash
+
+touch test.txt
+echo "Bad number of arguments!" > test.txt
+echo "Bad number!" >> test.txt
+echo "Learning to Linux"  >> test.txt
+echo "Learning to work with Network"  >> test.txt
+echo "Learning to Monitoring"  >> test.txt
+echo "Learning to extra Monitoring" >> test.txt
+echo "Learning to Docker" >> test.txt
+echo "Learning to CI/CD" >> test.txt
+echo "Bad number!" >> test.txt
+
+    ./DO > test1.txt
+    ./DO 0 >> test1.txt
+    ./DO 1 >> test1.txt
+    ./DO 2 >> test1.txt
+    ./DO 3 >> test1.txt
+    ./DO 4 >> test1.txt
+    ./DO 5 >> test1.txt
+    ./DO 6 >> test1.txt
+    ./DO bad >> test1.txt
+
+
+    DIFF_RES="$(diff -s test.txt test1.txt )"
+    if [ "$DIFF_RES" = "Files test.txt and test1.txt are identical" ]
+    then
+        echo "SUCCESS"
+    else
+        echo "FAIL"
+    fi
+    rm test.txt test1.txt
+
+
+```
+
+</details>
+
+<details>
+<summary> Вывод джобы </summary>
+
+![вывод джобы с успешными тестами](image/test_job_Success.png "вывод джобы с успешными тестами")  
+![вывод джобы с зафелиными тестами ](image/test_job_fail.png "вывод джобы с зафелиными тестами ")  
 
 </details>
