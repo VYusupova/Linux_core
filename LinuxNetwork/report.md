@@ -93,7 +93,9 @@ IP  помеченые как Loopback к ним можно обратиться
 
 </details>
 
-## Part 3. Утилита iperf3
+<details>
+ <summary> Утилита iperf3 </summary>
+
 [Теоретический матриал](../materials/iperf3_RUS.md "перейдя по ссылке посмотри как это устроено")  
 
 ### 3.1. Скорость соединения
@@ -112,6 +114,7 @@ IP  помеченые как Loopback к ним можно обратиться
 ![--scrin-- запуск серверной части iperf3 на ws2](img/part3_iperf_s_ws2.png)  
 ![--scrin-- запуск клиентской части iperf3 ws1](img/part3_iperf_c_ws1.png)  
 
+</details>
 
 ## Part 4. Сетевой экран
 
