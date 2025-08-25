@@ -478,8 +478,8 @@ notify-job:
   SUCCESS=" ✅  $CI_JOB_NAME  - $CI_JOB_ID  - $CI_JOB_STATUS  "
   FAIL="❌  $CI_JOB_NAME ---------- ---------- $CI_JOB_URL "
 
-  TOKEN=7971**5977:AAHF*2*p_Fdimtf9amz8ge-*n*_snBTvUmA
-  ID_CHAT=5142*9108
+  TOKEN=**** <это серетная информация ее надо хранить в закрытой части>
+  ID_CHAT=**** <это серетная информация ее надо хранить в закрытой части>
 
 if [[ $CI_JOB_NAME == "notify-job" ]]; then
      MESSAGE=" Запуск CI/CD для ветки $CI_COMMIT_BRANCH
