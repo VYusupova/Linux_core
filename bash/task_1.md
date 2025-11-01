@@ -6,51 +6,16 @@
 ```bash
 #!/bin/bash
 
-if (( $# != 1 )); then
-	echo "You must use one parameter!"
-	exit 1
-fi
-if ! [[ $1 =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-	echo "$1"
-else
-	echo "Incorrect input!"
-	exit 1
-fi
-```
-
-```bash
-#!/bin/bash
-
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 1 ]; then   # $# - колчиесво введенных параметров
     echo "Error: script needs only one argument"
     exit 1
 fi
-input="$1"
-
-if [[ "$input" =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-    echo "Error: input isn't text parametr"
-    exit 1
-else
-    echo "$input"
-    exit 0
-fi
 ```
 
-#wadegula
-```bash
-#!/bin/bash
-if [[ ($1 =~ ^-?[0-9]+$) || !($# =~ 1) ]]; then
-	echo "Некорректный ввод. Введено число!"
-else
-       	echo "$1"
-fi
-```
-
-#haraaero
 ```bash
 #!/bin/bash
 
-if [ -z "$1" ]; then
+if [ -z "$1" ]; then  #Ключ -z в if используется для проверки переменной на пустую строку.
   echo "Enter parameter"
   exit 1
 fi
@@ -81,3 +46,5 @@ fi
 > te1xt
 
 > 1 text
+
+> text 1
