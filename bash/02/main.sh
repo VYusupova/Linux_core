@@ -7,7 +7,7 @@ then
 echo "Not enter parametr"
 exit 1
 fi 
-show_system_info="HOSTNAME = $hostname
+show_system_info="HOSTNAME = $hostname 
 TIMEZONE = $timezone
 USER = $user
 OS = $system_os
@@ -30,7 +30,7 @@ read -p $'\nDo you want to save this data to a file?\n' res
 if [[ $res == "Y" || $res == "y" ]]
 then
     file=$(date '+%d_%m_%y_%H_%M_%S').status;
-    $show_system_info > $file;
+    echo "$show_system_info" > $file;
     echo -e "Info save to file \"$file\"";
 fi;
 
